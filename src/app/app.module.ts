@@ -4,10 +4,9 @@ import { AppRoutingModule } from './app.routing';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { TranslateModule } from 'ng2-translate';
 
 import { AppComponent } from './app.component';
-import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
-import { CarouselModule } from 'ng2-bootstrap/carousel';
 
 import { MembershipService } from './login/membership.service';
 import { LoginModule } from './login/login.module';
@@ -18,12 +17,11 @@ import { LoginModule } from './login/login.module';
   ],
   imports: [
     AppRoutingModule,
-    AlertModule.forRoot(),
-    CarouselModule.forRoot(),
     LoginModule.forRoot(),
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    TranslateModule.forRoot()
   ],
   providers: [MembershipService],
   bootstrap: [AppComponent]

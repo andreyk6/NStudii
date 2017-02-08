@@ -10,10 +10,11 @@ import { UserCredentials } from './user-credentials';
 import { } from './user-login-vm';
 import { } from './user-registration-vm';
 
+import { TranslateModule } from 'ng2-translate';
 
 @NgModule({
   imports: [
-    CommonModule, BrowserModule, FormsModule, HttpModule
+    CommonModule, BrowserModule, FormsModule, HttpModule, TranslateModule
   ],
   declarations: [LoginComponent, RegistrationComponent],
   providers: [MembershipService],

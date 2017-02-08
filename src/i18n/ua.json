@@ -1,0 +1,10 @@
+{
+    "HOME": {},
+    "LOGIN_MODULE": {
+        "LOGIN_PAGE": {
+            "PASSWORD": "Пароль",
+            "LOGIN_BTN_TEXT": "Вхід"
+        },
+        "REG_PAGE": {}
+    }
+}
