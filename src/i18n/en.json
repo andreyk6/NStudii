@@ -6,5 +6,8 @@
             "LOGIN_BTN_TEXT": "Login"
         },
         "REG_PAGE": {}
+    },
+    "TRANSLATION_BOX": {
+        "LABEL": "Language:"
     }
 }

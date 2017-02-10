@@ -6,5 +6,8 @@
             "LOGIN_BTN_TEXT": "Вхід"
         },
         "REG_PAGE": {}
+    },
+    "TRANSLATION_BOX": {
+        "LABEL": "Мова:"
     }
 }

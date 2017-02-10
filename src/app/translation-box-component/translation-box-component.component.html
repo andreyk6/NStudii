@@ -1,0 +1,8 @@
+<div ngbDropdown class="d-inline-block">
+  <button class="btn btn-outline-secondary" id="dropdownMenu1" ngbDropdownToggle>{{ 'TRANSLATION_BOX.LABEL' | translate }}</button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <button class="dropdown-item" *ngFor="let lang of translate.getLangs()" (click)="translate.use(lang)" [ngClass]="{'btn-outline-success': translate.currentLang == lang}">
+      {{lang}}
+    </button>
+  </div>
+</div>
