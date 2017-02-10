@@ -26,6 +26,7 @@ import { UserBoxComponentComponent } from './user-box-component/user-box-compone
     BrowserModule,
     FormsModule,
     HttpModule,
+    JsonpModule,
     TranslateModule.forRoot(),
     NgbModule.forRoot()
   ],

@@ -3,6 +3,4 @@ export class UserCredentials {
     tokenType: string;
     expiresIn: number;
     userName: string;
-    issued: Date;
-    exipes: Date;
 }

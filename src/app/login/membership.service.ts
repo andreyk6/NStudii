@@ -8,10 +8,10 @@ import { UserCredentials } from './user-credentials';
 
 @Injectable()
 export class MembershipService {
-
+  siteRootUrl: string = 'http://bogdankolomiec-001-site2.dtempurl.com';
   userCredentials: UserCredentials = null;
 
-  constructor() {
+  constructor(private http: Http) {
     this.loadUserDataFromLocalStorage();
   }
 
@@ -27,22 +27,37 @@ export class MembershipService {
 
   public login(user: UserLoginVM): Promise<string> {
     return new Promise((resolve, reject) => {
-      // TODO send HTTP request to get the tocken
-      if (user.email === user.password) {
-        this.userCredentials = {
-          accessTocken: 'asd@!Hkjsahn01klAs',
-          issued: new Date(2017, 1, 1),
-          exipes: new Date(2018, 1, 1),
-          expiresIn: 114920000,
-          tokenType: 'barier',
-          userName: user.email
-        };
-        resolve('tocken');
+      if (this._login(user.email, user.password)) {
+        resolve(true);
       } else {
         this.userCredentials = null;
-        reject('error msg');
+        reject(false);
       }
       this.saveUserDataToLocalStorage();
     });
+  }
+
+  private _login(email: string, password: string) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http
+      .post(
+      this.siteRootUrl + '/login',
+      JSON.stringify({ email, password }),
+      { headers }
+      )
+      .map(res => res.json())
+      .map((res) => {
+        if (res.success) {
+          this.userCredentials = {
+            accessTocken: res.access_tocken,
+            expiresIn: res.expires_in,
+            tokenType: 'bearer',
+            userName: email
+          };
+        }
+        return res.success;
+      });
   }
 }
