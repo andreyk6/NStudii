@@ -1,4 +1,4 @@
-import { Injectable, OnInit, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 
 // TODO: is it possible to move it into a sing file 
@@ -7,18 +7,22 @@ import { UserRegistrationVM } from './user-registration-vm';
 import { UserCredentials } from './user-credentials';
 
 @Injectable()
-export class MembershipService implements OnInit, OnDestroy {
+export class MembershipService {
 
   userCredentials: UserCredentials = null;
 
-  constructor() { }
-
-  ngOnInit() {
-    this.userCredentials = JSON.parse(localStorage.getItem('userCredentials'));
+  constructor() {
+    this.loadUserDataFromLocalStorage();
   }
 
-  ngOnDestroy() {
+  loadUserDataFromLocalStorage() {
+    this.userCredentials = JSON.parse(localStorage.getItem('userCredentials'));
+    console.log('ngOnInit' + this.userCredentials);
+  }
+
+  saveUserDataToLocalStorage() {
     localStorage.setItem('userCredentials', JSON.stringify(this.userCredentials));
+    console.log('ngOnDestroy' + this.userCredentials);
   }
 
   public login(user: UserLoginVM): Promise<string> {
@@ -38,6 +42,7 @@ export class MembershipService implements OnInit, OnDestroy {
         this.userCredentials = null;
         reject('error msg');
       }
+      this.saveUserDataToLocalStorage();
     });
   }
 }

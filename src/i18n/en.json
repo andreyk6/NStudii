@@ -1,0 +1,13 @@
+{
+    "HOME": {},
+    "LOGIN_MODULE": {
+        "LOGIN_PAGE": {
+            "PASSWORD": "Password",
+            "LOGIN_BTN_TEXT": "Login"
+        },
+        "REG_PAGE": {}
+    },
+    "TRANSLATION_BOX": {
+        "LABEL": "Language:"
+    }
+}
