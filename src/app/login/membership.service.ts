@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Observable } from 'rxjs';
 
 // TODO: is it possible to move it into a sing file 
 import { UserLoginVM } from './user-login-vm';
 import { UserRegistrationVM } from './user-registration-vm';
+import { UserRegistrationResponse } from './user-registration-response';
 import { UserCredentials } from './user-credentials';
 
 @Injectable()
 export class MembershipService {
-
+  siteRootUrl: string = 'http://bogdankolomiec-001-site2.dtempurl.com';
   userCredentials: UserCredentials = null;
 
-  constructor() {
+  constructor(private http: Http) {
     this.loadUserDataFromLocalStorage();
   }
 
@@ -44,5 +46,14 @@ export class MembershipService {
       }
       this.saveUserDataToLocalStorage();
     });
+  }
+
+  public register(user: UserRegistrationVM): Observable<Response> {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+
+    let body = `Email=${user.email}&Password=${user.password}&ConfirmPassword=${user.confirmPassword}`;
+
+    return this.http.post(this.siteRootUrl + '/api/Account/RegisterUser', body, options);
   }
 }

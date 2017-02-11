@@ -5,7 +5,11 @@
             "PASSWORD": "Password",
             "LOGIN_BTN_TEXT": "Login"
         },
-        "REG_PAGE": {}
+        "REG_PAGE": {
+            "PASSWORD": "Пароль",
+            "CONFIRM_PASSWORD": "Повторіть пароль",
+            "REGISTER_BTN_TEXT": "Зареєструватись"
+        }
     },
     "TRANSLATION_BOX": {
         "LABEL": "Language:"
