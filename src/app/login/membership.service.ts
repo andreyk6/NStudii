@@ -48,25 +48,12 @@ export class MembershipService {
     });
   }
 
-  public register(user: UserRegistrationVM): Observable<UserRegistrationResponse> {
+  public register(user: UserRegistrationVM): Observable<Response> {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
 
     let body = `Email=${user.email}&Password=${user.password}&ConfirmPassword=${user.confirmPassword}`;
 
-    return this.http.post(this.siteRootUrl + '/api/Account/RegisterUser', body, options)
-      .map(res => {
-        if (res.status === 200) {
-          return {
-            success: true,
-            message: 'User registered'
-          };
-        } else {
-          return {
-            success: false,
-            message: res.text
-          };
-        }
-      });
+    return this.http.post(this.siteRootUrl + '/api/Account/RegisterUser', body, options);
   }
 }
