@@ -27,25 +27,27 @@ export class MembershipService {
     console.log('ngOnDestroy' + this.userCredentials);
   }
 
-  public login(user: UserLoginVM): Promise<string> {
-    return new Promise((resolve, reject) => {
-      // TODO send HTTP request to get the tocken
-      if (user.email === user.password) {
-        this.userCredentials = {
-          accessTocken: 'asd@!Hkjsahn01klAs',
-          issued: new Date(2017, 1, 1),
-          exipes: new Date(2018, 1, 1),
-          expiresIn: 114920000,
-          tokenType: 'barier',
-          userName: user.email
-        };
-        resolve('tocken');
-      } else {
-        this.userCredentials = null;
-        reject('error msg');
-      }
-      this.saveUserDataToLocalStorage();
-    });
+  public login(user: UserLoginVM): Observable<Response> {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+    let body = `grant_type=password&username=${user.email}&password=${user.password}`;
+
+    return this.http.post(this.siteRootUrl + '/token', body, options)
+      .map(res => {
+        if (res.status === 200) {
+          let data = res.json();
+          this.userCredentials = {
+            accessTocken: data.access_token,
+            expiresIn: data.expires_in,
+            tokenType: data.token_type,
+            userName: user.email
+          };
+        } else {
+          this.userCredentials = null;
+        }
+        this.saveUserDataToLocalStorage();
+        return res;
+      });
   }
 
   public register(user: UserRegistrationVM): Observable<Response> {
@@ -57,3 +59,4 @@ export class MembershipService {
     return this.http.post(this.siteRootUrl + '/api/Account/RegisterUser', body, options);
   }
 }
+

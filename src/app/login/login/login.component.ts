@@ -19,10 +19,9 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.message = '';
-    this.auth.login(this.user)
-      .then((tocken) => {
-        // TODO: navigate to home - http://stackoverflow.com/questions/40250297/angular-2-login-module-with-template 
-      })
-      .catch((errMsg) => { this.message = errMsg; });
+    this.auth.login(this.user).subscribe(
+      (res) => { this.message = res.statusText; },
+      (err) => { this.message = err.json().error_description; }
+    );
   }
 }
