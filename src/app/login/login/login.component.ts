@@ -19,9 +19,9 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.message = '';
-    this.auth.login(this.user)
-      .subscribe(res =>
-        this.message = res.statusText
-      );
+    this.auth.login(this.user).subscribe(
+      (res) => { this.message = res.statusText; },
+      (err) => { this.message = err.json().error_description; }
+    );
   }
 }
