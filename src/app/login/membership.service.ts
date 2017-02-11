@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
-
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Observable } from 'rxjs';
 // TODO: is it possible to move it into a sing file 
 import { UserLoginVM } from './user-login-vm';
 import { UserRegistrationVM } from './user-registration-vm';
@@ -25,39 +25,27 @@ export class MembershipService {
     console.log('ngOnDestroy' + this.userCredentials);
   }
 
-  public login(user: UserLoginVM): Promise<string> {
-    return new Promise((resolve, reject) => {
-      if (this._login(user.email, user.password)) {
-        resolve(true);
-      } else {
-        this.userCredentials = null;
-        reject(false);
-      }
-      this.saveUserDataToLocalStorage();
-    });
-  }
+  public login(user: UserLoginVM): Observable<Response> {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+    let body = `grant_type=password&username=${user.email}&password=${user.password}`;
 
-  private _login(email: string, password: string) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-    return this.http
-      .post(
-      this.siteRootUrl + '/login',
-      JSON.stringify({ email, password }),
-      { headers }
-      )
-      .map(res => res.json())
-      .map((res) => {
-        if (res.success) {
+    return this.http.post(this.siteRootUrl + '/token', body, options)
+      .map(res => {
+        if (res.status === 200) {
+          let data = res.json();
           this.userCredentials = {
-            accessTocken: res.access_tocken,
-            expiresIn: res.expires_in,
-            tokenType: 'bearer',
-            userName: email
+            accessTocken: data.access_token,
+            expiresIn: data.expires_in,
+            tokenType: data.token_type,
+            userName: user.email
           };
+        } else {
+          this.userCredentials = null;
         }
-        return res.success;
+        this.saveUserDataToLocalStorage();
+        return res;
       });
   }
 }
+
