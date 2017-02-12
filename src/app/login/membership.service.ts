@@ -28,8 +28,7 @@ export class MembershipService {
   }
 
   public login(user: UserLoginVM): Observable<Response> {
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
+    let options = this._getXWWWUrlEncodedHeaderOptions();
     let body = `grant_type=password&username=${user.email}&password=${user.password}`;
 
     return this.http.post(this.siteRootUrl + '/token', body, options)
@@ -50,13 +49,26 @@ export class MembershipService {
       });
   }
 
+  public registerAdmin(user: UserRegistrationVM): Observable<Response> {
+    return this._register(user, 'Admin');
+  }
+
   public register(user: UserRegistrationVM): Observable<Response> {
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
+    return this._register(user, 'User');
+  }
+
+  private _register(user: UserRegistrationVM, role: string): Observable<Response> {
+    let options = this._getXWWWUrlEncodedHeaderOptions();
 
     let body = `Email=${user.email}&Password=${user.password}&ConfirmPassword=${user.confirmPassword}`;
 
-    return this.http.post(this.siteRootUrl + '/api/Account/RegisterUser', body, options);
+    return this.http.post(this.siteRootUrl + `/api/Account/Register${role}`, body, options);
+  }
+
+  private _getXWWWUrlEncodedHeaderOptions(): RequestOptions {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+    return options;
   }
 }
 
