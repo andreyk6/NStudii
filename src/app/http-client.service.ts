@@ -9,7 +9,10 @@ export class HttpClient {
   constructor(private http: Http, private auth: MembershipService) { }
 
   createAuthorizationHeader(headers: Headers) {
-    headers.append('Authorization', 'Bearer ' + this.auth.userCredentials.accessTocken);
+    if (this.auth.userCredentials != null) {
+      headers.append('Authorization', 'Bearer ' + this.auth.userCredentials.accessTocken);
+      headers.set('Content-type', 'application/json');
+    }
   }
 
   get(url) {

@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-6">
+      <form>
+        <div class="form-group row">
+          <label for="inputName" class="col-sm-12 col-md-4 col-form-label">Name</label>
+          <div class="col-sm-12 col-md-8">
+            <input [(ngModel)]="product.name" type="text" class="form-control" name="inputName" id="inputName" placeholder="">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputDescription" class="col-sm-12 col-md-4 col-form-label">Description</label>
+          <div class="col-sm-12 col-md-8">
+            <input [(ngModel)]="product.description" type="text" class="form-control" name="inputDescription" id="inputDescription" placeholder="">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPrice" class="col-sm-12 col-md-4 col-form-label">Price</label>
+          <div class="col-sm-12 col-md-8">
+            <input [(ngModel)]="product.price" type="number" class="form-control" name="inputPrice" id="inputPrice" placeholder="">
+          </div>
+        </div>
+        <div class="form-group row justify-content-end">
+          <div class="col-md-4 text-xs-center text-md-right">
+            <button (click)="add()" class="btn btn-primary">Add</button>
+          </div>
+        </div>
+      </form>
+      <div class="row justify-content-center">
+        <div class="col" *ngIf="message" class="alert alert-warning" role="alert">
+          <strong>{{message}}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
