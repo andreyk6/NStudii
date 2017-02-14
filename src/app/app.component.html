@@ -1,16 +1,28 @@
-<div class="row">
-  <nav>
-    <a routerLink="/login" routerLinkActive="active">Login</a>
-    <a routerLink="/registration" routerLinkActive="active">Registration</a>
-    <a routerLink="/registration/admin" routerLinkActive="active">Registration</a>
-    <a routerLink="/home" routerLinkActive="active">Home</a>
-    <a routerLink="/products/all" routerLinkActive="active">Producs</a>
-    <app-translation-box-component></app-translation-box-component>
-  </nav>
-</div>
-<div *ngIf="auth.userCredentials">
-  {{auth.userCredentials.userName}}
-</div>
-<div class="row">
-  <router-outlet></router-outlet>
+<template ngbModalContainer></template>
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <nav>
+        <a routerLink="/home" routerLinkActive="active">Home</a>
+        <a routerLink="/products/all" routerLinkActive="active">Producs</a>
+      </nav>
+    </div>
+    <div class="col-sm-8 col-md-4">
+      <div class="row justify-content-end">
+        <app-user-box-component></app-user-box-component>
+      </div>
+    </div>
+    <div class="col-sm-4 col-md-2">
+      <div class="row justify-content-end">
+        <app-translation-box-component></app-translation-box-component>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="min-height: 500px;">
+    <router-outlet></router-outlet>
+  </div>
+  <!--Modal windows service-->
 </div>

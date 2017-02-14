@@ -8,18 +8,24 @@ import { RegistrationComponent } from './registration/registration.component';
 import { RegistrationAdminComponent } from './registration-admin/registration-admin.component';
 import { MembershipService } from './membership.service';
 import { UserCredentials } from './user-credentials';
+import { UserBoxComponentComponent } from './user-box-component/user-box-component.component';
 import { } from './user-login-vm';
 import { } from './user-registration-vm';
 
 import { TranslateModule } from 'ng2-translate';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   imports: [
     CommonModule, BrowserModule, FormsModule, HttpModule, TranslateModule
   ],
-  declarations: [LoginComponent, RegistrationComponent, RegistrationAdminComponent],
+  declarations: [
+    LoginComponent, RegistrationComponent,
+    RegistrationAdminComponent, UserBoxComponentComponent
+  ],
   providers: [MembershipService],
-  exports: [LoginComponent, RegistrationComponent, RegistrationAdminComponent]
+  exports: [LoginComponent, RegistrationComponent, RegistrationAdminComponent, UserBoxComponentComponent]
 })
 export class LoginModule {
   static forRoot() {
