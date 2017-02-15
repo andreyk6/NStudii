@@ -1,0 +1,12 @@
+<div class="row">
+  <div *ngIf="auth.userCredentials" class="col">
+    {{auth.userCredentials.userName}}
+    <button class="btn btn-secondary" (click)="logOut()">Log out</button>
+  </div>
+  <div *ngIf="!auth.userCredentials" class="col">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-outline-secondary" (click)="logIn()">Log In</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="registration()">Registration</button>
+    </div>
+  </div>
+</div>

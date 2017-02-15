@@ -19,12 +19,15 @@ export class MembershipService {
 
   loadUserDataFromLocalStorage() {
     this.userCredentials = JSON.parse(localStorage.getItem('userCredentials'));
-    console.log('ngOnInit' + this.userCredentials);
   }
 
   saveUserDataToLocalStorage() {
     localStorage.setItem('userCredentials', JSON.stringify(this.userCredentials));
-    console.log('ngOnDestroy' + this.userCredentials);
+  }
+
+  public logout() {
+    this.userCredentials = null;
+    this.saveUserDataToLocalStorage();
   }
 
   public login(user: UserLoginVM): Observable<Response> {

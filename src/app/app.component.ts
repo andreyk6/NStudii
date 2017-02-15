@@ -1,14 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MembershipService } from './login/membership.service';
+
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent } from './login/login/login.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'TeachMe!';
 
-  constructor(private auth: MembershipService) {
+  constructor(private auth: MembershipService, private modalService: NgbModal) {
   }
+
+  ngOnInit() {
+    const modalRef = this.modalService.open(LoginComponent);
+    modalRef.componentInstance.name = 'Login';
+  }
+
 }
