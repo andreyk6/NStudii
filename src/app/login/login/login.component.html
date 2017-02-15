@@ -1,6 +1,7 @@
-<div class="container">
+<div class="container mt-3" >
+  <h3>Login</h3>
   <div class="row justify-content-center">
-    <div class="col-sm-12 col-md-6">
+    <div class="col">
       <form>
         <div class="form-group row">
           <label for="inputEmail" class="col-sm-12 col-md-4 col-form-label">E-mail</label>
@@ -20,8 +21,8 @@
           </div>
         </div>
       </form>
-      <div class="row justify-content-center">
-        <div class="col" *ngIf="message" class="alert alert-warning" role="alert">
+      <div class="row justify-content-center text-center">
+        <div class="col text-sm-center" *ngIf="message" class="alert alert-warning" role="alert">
           <strong>{{message}}</strong>
         </div>
       </div>

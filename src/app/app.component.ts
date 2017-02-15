@@ -12,12 +12,10 @@ import { LoginComponent } from './login/login/login.component';
 export class AppComponent implements OnInit {
   title = 'TeachMe!';
 
-  constructor(private auth: MembershipService, private modalService: NgbModal) {
+  constructor(private auth: MembershipService) {
   }
 
   ngOnInit() {
-    const modalRef = this.modalService.open(LoginComponent);
-    modalRef.componentInstance.name = 'Login';
   }
 
 }
